@@ -52,8 +52,8 @@ class EasySpaFeature(configuration: Configuration) {
                         // NOTE: 일반적인 경우
                         call.respondFile(File(configuration.staticRootDocs, configuration.defaultFile))
                     }
-                    finish()
                 }
+                return@intercept finish()
             }
 
             return feature
