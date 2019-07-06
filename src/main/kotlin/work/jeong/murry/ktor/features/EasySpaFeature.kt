@@ -42,7 +42,7 @@ class EasySpaFeature(configuration: Configuration) {
                 }
             }
 
-            pipeline.intercept(ApplicationCallPipeline.Features) {
+            pipeline.sendPipeline.intercept(ApplicationCallPipeline.Features) {
                 if (!call.request.uri.startsWith(configuration.apiUrl)) {
                     val path = call.request.uri.split("/")
                     if(path.last().matches(Regex("\\w+\\.\\w+"))) {
@@ -52,8 +52,10 @@ class EasySpaFeature(configuration: Configuration) {
                         // NOTE: 일반적인 경우
                         call.respondFile(File(configuration.staticRootDocs, configuration.defaultFile))
                     }
+                    finish()
                 }
             }
+
             return feature
         }
     }
