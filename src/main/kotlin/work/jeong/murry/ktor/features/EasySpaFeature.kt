@@ -43,7 +43,7 @@ class EasySpaFeature(configuration: Configuration) {
                 }
             }
 
-            pipeline.sendPipeline.intercept(ApplicationSendPipeline.Render) {
+            pipeline.sendPipeline.intercept(ApplicationSendPipeline.After) {
                 if (!call.request.uri.startsWith(configuration.apiUrl)) {
                     val path = call.request.uri.split("/")
                     if(path.last().matches(Regex("\\w+\\.\\w+"))) {
