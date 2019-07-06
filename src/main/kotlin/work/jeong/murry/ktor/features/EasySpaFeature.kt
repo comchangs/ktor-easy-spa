@@ -9,6 +9,7 @@ import io.ktor.http.content.files
 import io.ktor.http.content.static
 import io.ktor.http.content.staticRootFolder
 import io.ktor.request.uri
+import io.ktor.response.ApplicationSendPipeline
 import io.ktor.response.respondFile
 import io.ktor.routing.routing
 import io.ktor.util.AttributeKey
@@ -42,7 +43,7 @@ class EasySpaFeature(configuration: Configuration) {
                 }
             }
 
-            pipeline.sendPipeline.intercept(ApplicationCallPipeline.Features) {
+            pipeline.sendPipeline.intercept(ApplicationSendPipeline.Render) {
                 if (!call.request.uri.startsWith(configuration.apiUrl)) {
                     val path = call.request.uri.split("/")
                     if(path.last().matches(Regex("\\w+\\.\\w+"))) {
