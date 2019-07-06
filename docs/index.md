@@ -26,7 +26,7 @@ or
 ```kotlin
     install(EasySpaFeature) {
         staticRootDocs = "./htdocs"
-        val defaultFile = "index.html"
+        defaultFile = "index.html"
         apiUrl = "/api"
     }
 ```
