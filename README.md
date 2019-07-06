@@ -3,7 +3,7 @@ A feature of ktor for setting up single page application like Angular, React and
 
 ## Setting
 ### Maven
-```
+```xml
 <dependency>
   <groupId>work.jeong.murry.ktor.features</groupId>
   <artifactId>ktor-easy-spa</artifactId>
@@ -11,7 +11,7 @@ A feature of ktor for setting up single page application like Angular, React and
 </dependency>
 ```
 ### Gradle
-```
+```groovy
 dependencies {
     implementation("work.jeong.murry.ktor.features", "ktor-easy-spa", "{latest_version}")
 }
@@ -19,11 +19,11 @@ dependencies {
 
 ## Usage
 Just install the feature in your application with:
-```
+```kotlin
     install(EasySpaFeature)
 ```
 or
-```
+```kotlin
     install(EasySpaFeature) {
         staticRootDocs = "./htdocs"
         val defaultFile = "index.html"
