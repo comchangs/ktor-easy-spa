@@ -1,9 +1,6 @@
 package work.jeong.murry.ktor.features
 
-import io.ktor.application.Application
-import io.ktor.application.ApplicationCallPipeline
-import io.ktor.application.ApplicationFeature
-import io.ktor.application.call
+import io.ktor.application.*
 import io.ktor.http.content.default
 import io.ktor.http.content.files
 import io.ktor.http.content.static
@@ -13,6 +10,7 @@ import io.ktor.response.ApplicationSendPipeline
 import io.ktor.response.respondFile
 import io.ktor.routing.routing
 import io.ktor.util.AttributeKey
+import kotlinx.coroutines.future.future
 import java.io.File
 
 class EasySpaFeature(configuration: Configuration) {
@@ -43,7 +41,7 @@ class EasySpaFeature(configuration: Configuration) {
                 }
             }
 
-            pipeline.sendPipeline.intercept(ApplicationSendPipeline.After) {
+            pipeline.intercept(ApplicationCallPipeline.Features) {
                 if (!call.request.uri.startsWith(configuration.apiUrl)) {
                     val path = call.request.uri.split("/")
                     if(path.last().matches(Regex("\\w+\\.\\w+"))) {
