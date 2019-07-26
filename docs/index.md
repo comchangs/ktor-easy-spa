@@ -7,7 +7,7 @@ A feature of ktor for setting up single page application like Angular, React and
 <dependency>
   <groupId>work.jeong.murry.ktor.features</groupId>
   <artifactId>ktor-easy-spa</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
 </dependency>
 ```
 ### Gradle

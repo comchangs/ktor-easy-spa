@@ -1,18 +1,49 @@
+/*
+ * MIT License
+ *
+ * Copyright (c) 2019 Murry Jeong (comchangs@gmail.com)
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package work.jeong.murry.ktor.features
 
-import io.ktor.application.*
+import io.ktor.application.Application
+import io.ktor.application.ApplicationCallPipeline
+import io.ktor.application.ApplicationFeature
+import io.ktor.application.call
 import io.ktor.http.content.default
 import io.ktor.http.content.files
 import io.ktor.http.content.static
 import io.ktor.http.content.staticRootFolder
 import io.ktor.request.uri
-import io.ktor.response.ApplicationSendPipeline
 import io.ktor.response.respondFile
 import io.ktor.routing.routing
 import io.ktor.util.AttributeKey
-import kotlinx.coroutines.future.future
 import java.io.File
 
+/**
+ * EasySpaFeature
+ * A feature of ktor for setting up single page application like Angular, React and so on
+ *
+ * @author Murry Jeong (comchangs@gmail.com)
+ */
 class EasySpaFeature(configuration: Configuration) {
     private val staticRootDocs = configuration.staticRootDocs
     private val defaultFile = configuration.defaultFile
@@ -44,7 +75,7 @@ class EasySpaFeature(configuration: Configuration) {
             pipeline.intercept(ApplicationCallPipeline.Features) {
                 if (!call.request.uri.startsWith(configuration.apiUrl)) {
                     val path = call.request.uri.split("/")
-                    if(path.last().matches(Regex("\\w+\\.\\w+"))) {
+                    if (path.last().matches(Regex("\\w+\\.\\w+"))) {
                         // NOTE: *.css, *.js 등 리소스 파일인 경우
                         call.respondFile(File(configuration.staticRootDocs, path.last()))
                     } else {
