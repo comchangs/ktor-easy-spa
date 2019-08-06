@@ -34,6 +34,8 @@ import io.ktor.http.content.static
 import io.ktor.http.content.staticRootFolder
 import io.ktor.request.uri
 import io.ktor.response.respondFile
+import io.ktor.response.respondRedirect
+import io.ktor.routing.get
 import io.ktor.routing.routing
 import io.ktor.util.AttributeKey
 import java.io.File
@@ -70,23 +72,34 @@ class EasySpaFeature(configuration: Configuration) {
                     files("./")
                     default(configuration.defaultFile)
                 }
+
+                get("/*") {
+                    call.respondRedirect("/")
+                }
             }
 
             pipeline.intercept(ApplicationCallPipeline.Features) {
                 if (!call.request.uri.startsWith(configuration.apiUrl)) {
                     val path = call.request.uri.split("/")
-                    if (path.last().matches(Regex("\\w+\\.\\w+"))) {
-                        // NOTE: *.css, *.js 등 리소스 파일인 경우
-                        call.respondFile(File(configuration.staticRootDocs, path.last()))
+                    if (path.last().matches(Regex("[\\S]+\\.[\\S]+"))) {
+                        // NOTE: resource files like *.css, *.js and so on
+                        val urlPathString = String.joinUrlPath(configuration.staticRootDocs, path.subList(1, path.lastIndex))
+                        call.respondFile(File(urlPathString, path.last()))
                     } else {
-                        // NOTE: 일반적인 경우
+                        // NOTE: any paths
                         call.respondFile(File(configuration.staticRootDocs, configuration.defaultFile))
                     }
+                    return@intercept finish()
                 }
-                return@intercept finish()
             }
 
             return feature
         }
     }
+}
+
+private fun String.Companion.joinUrlPath(start: String, list: List<String>): String {
+    var url = start
+    list.forEach { url = "$url/$it" }
+    return url
 }

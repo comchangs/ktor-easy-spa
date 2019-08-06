@@ -5,7 +5,7 @@
 
     <groupId>work.jeong.murry.ktor.features</groupId>
     <artifactId>ktor-easy-spa</artifactId>
-    <version>1.0</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
 
     <name>work.jeong.murry.features ktor-easy-spa</name>
