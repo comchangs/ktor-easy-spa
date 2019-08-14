@@ -17,6 +17,7 @@ compile("work.jeong.murry.ktor.features:ktor-easy-spa:1.0.1")
   <version>1.0.1</version>
 </dependency>
 ```
+
 ### Gradle
 ```groovy
 dependencies {
