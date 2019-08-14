@@ -6,7 +6,7 @@ A feature of ktor for setting up single page application like Angular, React and
 ## Setting
 ### Gradle Kotlin DSL
 ```groovy
-compile("work.jeong.murry.ktor.features:ktor-easy-spa:1.0")
+compile("work.jeong.murry.ktor.features:ktor-easy-spa:1.0.1")
 ```
 
 ### Maven
@@ -14,13 +14,13 @@ compile("work.jeong.murry.ktor.features:ktor-easy-spa:1.0")
 <dependency>
   <groupId>work.jeong.murry.ktor.features</groupId>
   <artifactId>ktor-easy-spa</artifactId>
-  <version>1.0</version>
+  <version>1.0.1</version>
 </dependency>
 ```
 ### Gradle
 ```groovy
 dependencies {
-    implementation("work.jeong.murry.ktor.features", "ktor-easy-spa", "1.0")
+    implementation("work.jeong.murry.ktor.features", "ktor-easy-spa", "1.0.1")
 }
 ```
 
