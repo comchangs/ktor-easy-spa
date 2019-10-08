@@ -39,7 +39,7 @@
         <kotlin.code.style>official</kotlin.code.style>
         <junit.version>4.12</junit.version>
         <ktor_version>1.2.2</ktor_version>
-        <dokka.version>0.9.18</dokka.version>
+        <dokka.version>0.10.0</dokka.version>
         <main.class>work.jeong.murry.ktor.features.EasySpaFeature</main.class>
     </properties>
 
