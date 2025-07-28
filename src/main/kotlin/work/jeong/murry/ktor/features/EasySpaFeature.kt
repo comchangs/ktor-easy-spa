@@ -81,7 +81,8 @@ class EasySpaFeature(configuration: Configuration) {
 
             pipeline.intercept(ApplicationCallPipeline.Features) {
                 if (!call.request.uri.startsWith(configuration.apiUrl)) {
-                    val path = call.request.path().split("/")
+                    val requestPath = call.request.uri.substringBefore('?')
+                    val path = requestPath.split("/")
                     if (path.last().matches(Regex("[\\S]+\\.[\\S]+"))) {
                         // NOTE: resource files like *.css, *.js and so on
                         val urlPathString = String.joinUrlPath(configuration.staticRootDocs, path.subList(1, path.lastIndex))
