@@ -32,6 +32,7 @@ import io.ktor.http.content.default
 import io.ktor.http.content.files
 import io.ktor.http.content.static
 import io.ktor.http.content.staticRootFolder
+import io.ktor.request.path
 import io.ktor.request.uri
 import io.ktor.response.respondFile
 import io.ktor.response.respondRedirect
@@ -80,7 +81,7 @@ class EasySpaFeature(configuration: Configuration) {
 
             pipeline.intercept(ApplicationCallPipeline.Features) {
                 if (!call.request.uri.startsWith(configuration.apiUrl)) {
-                    val path = call.request.uri.split("/")
+                    val path = call.request.path().split("/")
                     if (path.last().matches(Regex("[\\S]+\\.[\\S]+"))) {
                         // NOTE: resource files like *.css, *.js and so on
                         val urlPathString = String.joinUrlPath(configuration.staticRootDocs, path.subList(1, path.lastIndex))
